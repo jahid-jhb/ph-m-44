@@ -1,7 +1,9 @@
-import { AlignLeft } from 'lucide-react';
-import React from 'react';
+import { DynamicIcon } from 'lucide-react/dynamic';
+import React, { useState } from 'react';
 
 const NavBar = () => {
+
+    const [menuBarShow, setMenuBarShow] = useState(true);
 
     const navigationData = [
         {
@@ -31,6 +33,10 @@ const NavBar = () => {
         }
     ];
 
+    const handleMenuBar = () =>{
+        setMenuBarShow(!menuBarShow);
+    }
+
 
 
     return (
@@ -38,21 +44,16 @@ const NavBar = () => {
 
             {/* Mobile Responsive */}
             <div className='sm:hidden'>
-                <AlignLeft className='' />
+                <button className='duration-1000' onClick={handleMenuBar}>
+                    <DynamicIcon className='duration-1000' name={menuBarShow ? 'align-left' : 'x'} />
+                </button>
 
-                <ul className='flex flex-col gap-2 bg-[#ff726d30] p-3 pr-9 rounded-[4px]'>
+                <ul className={`absolute ${menuBarShow ? '-top-52' : 'top-14'} duration-1000 flex flex-col gap-2 bg-[#ff726d30] p-3 pr-9 rounded-[4px]`}>
                     {
                         navigationData.map(route => <li key={route.id}><a href={route.path} className='text-start'>{route.name}</a></li>)
                     }
                 </ul>
 
-
-                {/* <div className='flex flex-col gap-2 bg-blue-900 p-3 rounded-[4px]'>
-                    <li><a href='/' className='btn btn-ghost p-0 text-start'>Home</a></li>
-                    <li><a href='/blogs' className='btn btn-ghost p-0'>Blogs</a></li>
-                    <li><a href='/about_us' className='btn btn-ghost p-0'>About Us</a></li>
-                    <li><a href='/contact_us' className='btn btn-ghost p-0'>Contact Us</a></li>
-                </div> */}
             </div>
 
             {/* nav_logo_area */}
@@ -61,13 +62,6 @@ const NavBar = () => {
             </div>
 
             {/* nav_center_area */}
-            {/* <div className=''>
-                <a href='/' className='btn btn-ghost p-0'>Home</a>
-                <a href='/blogs' className='btn btn-ghost p-0'>Blogs</a>
-                <a href='/about_us' className='btn btn-ghost p-0'>About Us</a>
-                <a href='/contact_us' className='btn btn-ghost p-0'>Contact Us</a>
-            </div> */}
-
             <ul className='list-none hidden sm:flex gap-2'>
                 {
                     navigationData.map(route => <li key={route.id}><a href={route.path} className='btn btn-ghost p-0 text-start'>{route.name}</a></li>)
